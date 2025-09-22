@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Vision | SIH 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- Root Variables and Global Styles --- */
+        :root {
+            --primary-color: #4285F4; /* Google Blue */
+            --secondary-color: #34A853; /* Google Green */
+            --dark-text: #202124;
+            --light-text: #5f6368;
+            --bg-color: #ffffff;
+            --section-bg: #f8f9fa;
+            --border-color: #dadce0;
+            --shadow: 0 4px 6px rgba(32,33,36,0.08);
+            --shadow-hover: 0 6px 12px rgba(32,33,36,0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--dark-text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 100px 0;
+            overflow: hidden;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--dark-text);
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--light-text);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* --- Navigation --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 16px 0;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .nav-logo svg {
+            width: 28px;
+            height: 28px;
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light-text);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        /* --- Threat Levels Section --- */
+        .threat-levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            text-align: left;
+        }
+        .threat-card {
+            background: #fff;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        .threat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        .threat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .threat-header svg {
+            width: 28px;
+            height: 28px;
+        }
+        .threat-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .threat-card p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+        .threat-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 8px;
+            background-color: var(--section-bg);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--light-text);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Threat Level Colors */
+        .low-risk { border-color: #FBBC04; }
+        .low-risk .threat-header h3 { color: #FBBC04; }
+        .low-risk .threat-header svg { color: #FBBC04; }
+
+        .medium-risk { border-color: #F29900; }
+        .medium-risk .threat-header h3 { color: #F29900; }
+        .medium-risk .threat-header svg { color: #F29900; }
+        
+        .high-risk { border-color: #EA4335; }
+        .high-risk .threat-header h3 { color: #EA4335; }
+        .high-risk .threat-header svg { color: #EA4335; }
+
+
+        /* --- Hero Section --- */
+        #home {
+            padding-top: 180px;
+            padding-bottom: 120px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        #home h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            background: -webkit-linear-gradient(45deg, #1A73E8, #202124);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        #home p.subtitle {
+            font-size: 1.25rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 32px auto;
+        }
+
+        .sih-info {
+            font-size: 0.9rem;
+            color: #9aa0a6;
+            margin-top: 40px;
+            font-weight: 500;
+        }
+        .sih-info span {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        
+        /* --- D3.js Interactive Workflow Styles --- */
+        #how-it-works {
+            background-color: var(--section-bg);
+        }
+
+        #d3-workflow-graph {
+            width: 100%;
+            height: 600px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: #fff;
+            cursor: move;
+        }
+        
+        .d3-node {
+            cursor: pointer;
+        }
+        
+        .d3-node circle {
+            transition: all 0.3s ease;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .d3-node:hover circle {
+            filter: drop-shadow(0px 4px 10px rgba(66, 133, 244, 0.4));
+        }
+        
+        .d3-link {
+            stroke: var(--border-color);
+            stroke-width: 2px;
+            transition: stroke-opacity 0.5s ease;
+        }
+
+        .animated-link {
+            stroke-dasharray: 8 4;
+            animation: dash 1s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -24;
+            }
+        }
+        
+        .d3-tooltip {
+            position: absolute;
+            text-align: left;
+            width: auto;
+            max-width: 220px;
+            padding: 10px 14px;
+            font: 13px 'Inter', sans-serif;
+            background: var(--dark-text);
+            color: #fff;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* --- Features Section --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .feature-card {
+            background: var(--section-bg);
+            padding: 28px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-color);
+            background-color: #fff;
+        }
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .feature-card p {
+            font-size: 1rem;
+            color: var(--light-text);
+        }
+
+        /* --- Tech Stack --- */
+        #tech-stack {
+            background-color: var(--section-bg);
+        }
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 120px;
+        }
+        .tech-item img {
+            height: 48px;
+            width: 48px;
+            object-fit: contain;
+        }
+        .tech-item p {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* --- Team Section --- */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px 24px;
+            justify-content: center;
+        }
+        .team-member {
+            text-align: center;
+        }
+        .team-member img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+            transition: transform 0.3s ease;
+        }
+        .team-member:hover img {
+            transform: scale(1.05);
+        }
+        .team-member h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .team-member p {
+            color: var(--light-text);
+            font-weight: 500;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--dark-text);
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .footer-text {
+            max-width: 500px;
+            margin: 0 auto;
+            color: #bdc1c6;
+        }
+
+        /* --- Scroll Animation --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="nav-logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Secure Vision
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#how-it-works">Workflow</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#extension-in-action">Extension</a></li>
+                <li><a href="#tech-stack">Technology</a></li>
+                <li><a href="#team">Team</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home">
+            <div class="container reveal">
+                <h1>Your AI Guardian Against Digital Deception.</h1>
+                <p class="subtitle">Secure Vision offers proactive, AI-powered protection across all your digital platforms, identifying and neutralizing sophisticated phishing threats in real-time.</p>
+                <a href="#how-it-works" class="cta-button">Explore the Technology</a>
+                <div class="sih-info">
+                    Smart India Hackathon 2025 <span>|</span> Problem ID: SIH25159 <span>|</span> Theme: Blockchain & Cybersecurity
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Our Intelligent Defense Mechanism</h2>
+                    <p>An interactive look at our AI pipeline. Click nodes to expand and collapse, and drag them to explore the connections.</p>
+                </div>
+                <div id="d3-workflow-graph" class="reveal"></div>
+            </div>
+        </section>
+        
+        <section id="features">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Comprehensive Protection, Built for Today</h2>
+                    <p>Secure Vision is packed with powerful features designed for a smarter, safer digital experience.</p>
+                </div>
+                <div class="features-grid reveal">
+                    <div class="feature-card"><h3>Multi-Platform Defense</h3><p>Integrates seamlessly with email clients, web browsers, and mobile apps for unified protection.</p></div>
+                    <div class="feature-card"><h3>Real-Time AI Analysis</h3><p>High-speed models scan content in milliseconds, neutralizing threats without impacting performance.</p></div>
+                    <div class="feature-card"><h3>Zero-Day Threat Detection</h3><p>Our AI understands context and intent, allowing it to block brand new, never-before-seen phishing attacks.</p></div>
+                    <div class="feature-card"><h3>Instant Alerts & Blocking</h3><p>Immediately blocks malicious sites and quarantines suspicious emails with clear user notifications.</p></div>
+                    <div class="feature-card"><h3>Visual Impersonation AI</h3><p>Uses computer vision to detect subtle logo changes, typosquatting, and visual similarities in fake websites.</p></div>
+                    <div class="feature-card"><h3>Continuous Learning Loop</h3><p>Our models constantly learn from new global threats, ensuring the system becomes smarter and more effective over time.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="extension-in-action" style="background-color: var(--section-bg);">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Our Browser Extension in Action</h2>
+                    <p>Secure Vision provides clear, tiered warnings based on real-time threat analysis, empowering you to make smarter browsing decisions.</p>
+                </div>
+                <div class="threat-levels-grid reveal">
+                    <!-- Low Risk Card -->
+                    <div class="threat-card low-risk">
+                        <div class="threat-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" /></svg>
+                            <h3>Low Risk</h3>
+                        </div>
+                        <div class="threat-image"><span>Subtle Notification</span></div>
+                        <p><strong>Action: Gentle Warning.</strong> For sites with suspicious elements but low confidence of a threat, a discreet notification appears. It informs you of potential danger without interrupting your workflow.</p>
+                    </div>
+                    <!-- Medium Risk Card -->
+                    <div class="threat-card medium-risk">
+                        <div class="threat-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+                            <h3>Medium Risk</h3>
+                        </div>
+                        <div class="threat-image"><span>"Open at Your Own Risk" Pop-up</span></div>
+                        <p><strong>Action: Confirmation Required.</strong> When a site is flagged as moderately risky, a clear pop-up message appears. You are advised of the specific risks and must consciously decide to proceed.</p>
+                    </div>
+                    <!-- High Risk Card -->
+                    <div class="threat-card high-risk">
+                        <div class="threat-header">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 12.75c1.148 0 2.083-.936 2.083-2.083s-.935-2.083-2.083-2.083-2.083.936-2.083 2.083.935 2.083 2.083 2.083z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9.042 14.85c-1.12.516-1.917 1.2-2.334 1.542-.853.698-1.52 1.542-1.52 2.625v.417h13.625v-.417c0-1.083-.667-1.927-1.52-2.625-.418-.342-1.215-1.026-2.334-1.542M12 2.083C6.52 2.083 2.083 6.52 2.083 12s4.437 9.917 9.917 9.917 9.917-4.437 9.917-9.917S17.48 2.083 12 2.083z" /></svg>
+                            <h3>High Risk</h3>
+                        </div>
+                        <div class="threat-image"><span>Access Blocked Page</span></div>
+                        <p><strong>Action: Access Denied.</strong> For sites confirmed to be malicious, Secure Vision completely blocks access. A screen appears explaining the specific threat detected, protecting your data and device.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech-stack">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Technology We Use</h2>
+                    <p>Built on a foundation of robust and cutting-edge technologies to deliver performance and reliability.</p>
+                </div>
+                <div class="tech-grid reveal">
+                    <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/python/python-icon.svg" alt="Python"><p>Python</p></div>
+                    <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg" alt="TensorFlow"><p>TensorFlow</p></div>
+                    <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-icon.svg" alt="PyTorch"><p>PyTorch</p></div>
+                    <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg" alt="React"><p>React.js</p></div>
+                    <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/djangoproject/djangoproject-icon.svg" alt="Django"><p>Django</p></div>
+                    <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/docker/docker-icon.svg" alt="Docker"><p>Docker</p></div>
+                    <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" alt="Google Cloud"><p>Google Cloud</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Meet Team Secure Vision</h2>
+                    <p>A passionate team of six B.Tech students from the Andhra Loyola Institute of Engineering and Technology, Vijayawada, dedicated to creating a safer digital world.</p>
+                </div>
+                <div class="team-grid reveal">
+                    <!-- Member 1 -->
+                    <div class="team-member">
+                        <img src="https://placehold.co/140x140/E8F0FE/4285F4?text=S" alt="Team Member Surya">
+                        <h3>Surya</h3><p>Team Lead & AI/ML Specialist</p>
+                    </div>
+                    <!-- Member 2 -->
+                    <div class="team-member">
+                        <img src="https://placehold.co/140x140/E6F4EA/34A853?text=M2" alt="Team Member 2">
+                        <h3>[Member 2 Name]</h3><p>Backend & Cloud Architect</p>
+                    </div>
+                    <!-- Member 3 -->
+                    <div class="team-member">
+                        <img src="https://placehold.co/140x140/FCE8E6/EA4335?text=M3" alt="Team Member 3">
+                        <h3>[Member 3 Name]</h3><p>Frontend & UI/UX Design</p>
+                    </div>
+                    <!-- Member 4 -->
+                    <div class="team-member">
+                        <img src="https://placehold.co/140x140/FEF7E0/FBBC04?text=M4" alt="Team Member 4">
+                        <h3>[Member 4 Name]</h3><p>Lead Researcher & Data</p>
+                    </div>
+                    <!-- Member 5 -->
+                    <div class="team-member">
+                        <img src="https://placehold.co/140x140/E8E8E8/5F6368?text=M5" alt="Team Member 5">
+                        <h3>[Member 5 Name]</h3><p>DevOps & System Integration</p>
+                    </div>
+                    <!-- Member 6 -->
+                    <div class="team-member">
+                        <img src="https://placehold.co/140x140/D2E3FC/1A73E8?text=M6" alt="Team Member 6">
+                        <h3>[Member 6 Name]</h3><p>Documentation & Presentation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Secure Vision</div>
+            <p class="footer-text">Developed with passion for the Smart India Hackathon 2025.</p>
+        </div>
+    </footer>
+    <div id="tooltip" class="d3-tooltip"></div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        // --- SCRIPT FOR SCROLL ANIMATIONS, NAV LINKS, AND D3 GRAPH ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- SCROLL & NAV SCRIPT ---
+            const revealOnScroll = () => {
+                const reveals = document.querySelectorAll('.reveal');
+                const windowHeight = window.innerHeight;
+                reveals.forEach(reveal => {
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 100) {
+                        reveal.classList.add('visible');
+                    }
+                });
+            };
+
+            const updateActiveNavLink = () => {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('.nav-links a');
+                let currentId = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= sectionTop - 100) {
+                        currentId = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', () => {
+                revealOnScroll();
+                updateActiveNavLink();
+            });
+
+            // Initial calls
+            revealOnScroll();
+            updateActiveNavLink();
+
+            // --- D3.js INTERACTIVE WORKFLOW SCRIPT ---
+            const graphContainer = document.getElementById('d3-workflow-graph');
+            if (!graphContainer) {
+                console.error("D3 graph container '#d3-workflow-graph' not found.");
+                return;
+            }
+
+            const tooltip = d3.select("body").append("div")
+                .attr("id", "tooltip")
+                .attr("class", "d3-tooltip");
+
+            const workflowData = {
+                name: "Secure Vision Core",
+                description: "The central AI engine that orchestrates the entire defense process.",
+                icon: "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDIyQzEyIDIyIDIwIDE4IDIwIDEyVjVMMTIgMkw0IDV2N0M0IDE4IDEyIDIyIDEyIDIyWiIgc3Ryb2tlPSIjNDI4NUY0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==",
+                children: [
+                    {
+                        name: "1. Ingestion",
+                        description: "Collects real-time data from all potential threat vectors.",
+                        icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjcuMyAyLjY2N2gtMTljLTIuNTcgMC00LjY2NyAyLjA5Ny00LjY2NyA0LjY2N3YyMS4zMzNjMCAyLjU3IDIuMDk3IDQuNjY3IDQuNjY3IDQuNjY3aDIxLjMzM2MyLjU3IDAgNC42NjctMi4wOTcgNC42NjctNC42Njd2LTE2YzAtMC43MzYtMC41OTctMS4zMzMtMS4zMzMtMS4zMzNzLTEuMzMzIDAuNTk3LTEuMzMzIDEuMzMzdjE2YzAgMS4xMDMtMC4xOTUgMS45OTktMS45OTkgMS45OTloLTIxLjMzNWMtMS4xMDMgMC0xLjk5OS0wLjg5NS0xLjk5OS0xLjk5OXYtMjEuMzMzYzAtMS4xMDMgMC44OTUtMS45OTkgMS45OTktMS45OTloMTljMS4xMDMgMCAxLjk5OSAwLjg5NSAxLjk5OSAxLjk5OXYzLjMzM2MwIDAuNzM2IDAuNTk3IDEuMzMzIDEuMzMzIDEuMzMzcyAxLjMzMy0wLjU5NyAxLjMzMy0xLjMzM3YtMy4zMzNjMC0yLjU3LTIuMDk3LTQuNjY3LTQuNjY3LTQuNjY3ek0xMy4zMzMgMTcuMzMzaC00Yy0wLjczNiAwLTEuMzMzLTAuNTk3LTEuMzMzLTEuMzMzcyAwLjU5Ny0xLjMzMyAxLjMzMy0xLjMzM2g0di00YzAtMC43MzYgMC41OTctMS4zMzMgMS4zMzMtMS4zMzNzIDEuMzMzIDAuNTk3IDEuMzMzIDEuMzMzdjRoNGMwLjczNiAwIDEuMzMzIDAuNTk3IDEuMzMzIDEuMzMzcy0wLjU5NyAxLjMzMy0xLjMzMyAxLjMzM2gtNHY0YzAgMC43MzYtMC41OTcgMS4zMzMtMS4zMzMgMS4zMzNzLTEuMzMzLTAuNTk3LTEuMzMzLTEuMzMzdj00eiIvPjwvc3ZnPg==",
+                        children: [ 
+                            { name: "Emails & Text", description: "Scans incoming text for malicious content, sentiment, and suspicious links.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIwIDRoLTRMMTQgMkgxMGwtMiAyaC00Yy0xLjEgMC0yIC45LTIgMnYxMmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0ydi0xMmMwLTEuMS0uOS0yLTItMnpNMTIgNWMxLjY2IDAgMyAxLjM0IDMgM3MtMS4zNCAzLTMgMy0zLTEuMzQtMy0zIDEuMzQtMyAzLTN6bTYgOWgtMTJ2LTFjMC0yIDQuNDgtMy42IDYuNS0zLjZzNi41IDEuNiA2LjUgMy42djF6Ii8+PC9zdmc+" }, 
+                            { name: "Web URLs", description: "Analyzes URLs against reputation databases and checks for typosquatting.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDJDNi40OCA MiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyeiBtMCAxOGMtNC40MSAwLTgtMy41OS04LThzMy41OS04IDgtOCA4IDMuNTkgOCA4LTMuNTkgOC04IDh6bTMuNS05SDIyYzAtMy41LTIuNS02LjUtNi03djEuNWMyLjUgMCA0LjUgMiA0LjUgNC41ek0xMSAxLjA1Yy0yLjA4IDAtNCAuNjktNS40NyAxLjg0TDE2LjE2IDEzLjVjMS4xNS0xLjQ3IDEuODQtMy4zOSAxLjg0LTUuNDcgMC0yLjc2LTIuMjQtNS01LTV6TTUuODQgOS44NEwyIDE1di0yLjM1YzAtMi4wOC42OS00IDEuODQtNS40N3oiLz48L3N2Zz4=" }, 
+                            { name: "App Behavior", description: "Monitors applications for suspicious activities like unexpected credential prompts.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE2IDFINmwtMyA1bDEwIDE4IDEwLTE4LTQtNXptLTcgMTJsLTYtMTAgMS41LTNjMy45MSAyLjcgNS41IDUgNS41IDVoLTF6bS41LTEySDkuNzNsLS43MyAySDl2LTJ6bTEuNSA2aC0zdi0ySDVWOS41bDEuNS0uNTVMMTAgMTBoMXYzem0zLjUgNmgtNlYxMWg2djh6Ii8+PC9zdmc+" } 
+                        ]
+                    },
+                    {
+                        name: "2. Analysis",
+                        description: "Extracts features and signals from the raw data using specialized models.",
+                        icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE5IDNINWMtMS4xMSAwLTIgLjg5LTIgMnYxNGMwIDEuMTEuODkgMiAyIDJoMTRjMS4xMSAwIDItLjg5IDItMlY1YzAgLTEuMTEtLjg5LTItMi0yem0wIDE2SDVWNWgxNHYxNHptLTUtOGgtMnY0aDJ2LTR6bS00IDBoMnYyaC0ydi0yem04IDBoMnYyaC0ydi0yem0tMS41LTEuNUwxMyAxMy41bDEuNSA0LjVIMTB2LTZoMy41bDEuNS0uNXoiLz48L3N2Zz4=",
+                        children: [ 
+                            { name: "NLP", description: "Natural Language Processing to understand the intent and context of text.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIyIDZINGMtMS4xIDAtMiAuOS0yIDJ2OGMwIDEuMS45IDIgMiAyaDE4YzEuMSAwIDItLjkgMi0yVjBjMC0xLjEtLjktMi0yLTJ6bTAgMTBINDZWN2gxNnYxek00IDRoMnYyaC0yVjR6bTQgMGgydjJoLTI2ek0xIDRoMnYyaC0yVjR6Ii8+PC9zdmc+" }, 
+                            { name: "Reputation DB", description: "Cross-references links and domains with known blacklists of malicious sites.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTQgNGMwLTIuMjEgMS43OS00IDQtNGgxNGMyLjIxIDAgNCAxLjc5IDQgNHYxNGMwIDIuMjEtMS43OSA0LTQgNEg0VjR6bTIgMTZIMjBWNmgtMTR2MTR6bTIuNS04aDl2LTJoLTl2MnptMC00aDl2LTJoLTl2MnoiLz48L3N2Zz4=" }, 
+                            { name: "Visual AI", description: "Computer Vision detects brand impersonation by analyzing logos and site layouts.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMy4yIi8+PHBhdGggZD0iTTkgMmw2LjMtNi4zQzIwLjggNi4xIDE3LjkgOSA5LjUgOS01LjQgOSA0LjYgMTIgMS4yIDEyIDQuNSA5LjUgOC42IDEyIDEyIDQuNSAyLjcgMi43IDUtNSA1LTItMi4yIDEuOC00IDQtNHoiLz48L3N2Zz4=" }, 
+                            { name: "UI Checks", description: "Analyzes the user interface for suspicious elements like fake login forms.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEzIDZ2MTJoNmwtMy00IDMtNGgtNnptLTQgMmg4djJIM1Zwem0wIDRoOHYySDV2LTJ6bTAtNGg4djJIM1Y4eiIvPjwvc3ZnPg==" } 
+                        ]
+                    },
+                    {
+                        name: "3. AI Decision Core",
+                        type: "primary",
+                        description: "The brain of the operation, where a final decision is made.",
+                        icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE5Ljc3IDE5LjIzaDEuOThjLjEzIDAgLjI0LS4wOS4yNi0uMjJsMS4zOS05LjM5Yy4wMy0uMi0uMDQtLjQtLjItLjUzbC04LjQtOC40Yy0uMi0uMi0uNS0uMi0uNyAwbC04LjQgOC40Yy0uMTYuMTYtLjIzLjM2LS4yLjUzbDEuMzkgOS4zOWMuMDIuMTMuMTMuMjIuMjYuMjJoMS45OGw0LjQ4LTQuNDhjLjItLjIuNS0uMi43IDBsNC40OCA0LjQ4ek0xNSA5aC0ydi0yaDJ2MnptLTQgMGgtMnYtMmgydjJ6bS00IDBoLTJ2LTJoMnYyem0xMiAwaC0ydi0yaDJ2MnoiLz48L3N2Zz4=",
+                        children: [ 
+                            { name: "LSTM/Transformer", description: "A state-of-the-art deep learning model makes the final classification: safe or malicious.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgMThjLTQuNDEgMC04LTMuNTktOC04czMuNTktOCA4LTggOCAzLjU5IDggOC0zLjU5IDgtOCA4em0tMSA1SDZ2Mmg1di0yem0yIDBoNXYyaC01di0yem0tNCA0aDh2MmgtOHYtMnoiLz48L3N2Zz4=" } 
+                        ]
+                    },
+                    {
+                        name: "4. Automated Action",
+                        description: "Executes the decision in real-time to protect the user.",
+                        icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTcgMnYxMUwzIDdoMnYxMWwtNCA2aDE4bC00LTZ2LTExaDJMNzIgMnYxMXoiLz48L3N2Zz4=",
+                        children: [ 
+                            { name: "Block Threat", description: "Immediately blocks access to confirmed phishing sites and malicious downloads.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDJDNi40OCA MiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyeiBtNCAxM0g4di0yaDh2MnptMC00SDhWOTh2MnoiLz48L3N2Zz4=" }, 
+                            { name: "Alert User", description: "Issues clear, tiered warnings to the user based on the assessed threat level.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDIyYy0xLjEgMC0yLS45LTItMlY0YzAtMS4xLjktMiAyLTJoLjVjMS4xIDAgMiAuOSAyIDJ2MTZjMCAxLjEtLjkgMi0yIDJ6bTYtMTJ2MTBoMi41YzEuMSAwIDItLjkgMi0yVjZoLTIuNWMtMS4xIDAtMiAuOXptLTE0IDB2MTBIOWMxLjEgMCAyLS45IDItMlY2SDhjLTEuMSAwLTIgLjl6Ii8+PC9zdmc+" }, 
+                            { name: "Learning Loop", description: "Feeds the result back into the system to continuously improve the AI model's accuracy.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDZjLTMuMzEgMC02IDIuNjktNiA2czIuNjkgNiA2IDYgNi0yLjY5IDYtNi0yLjY5LTYtNi02em0wIDEwYy0yLjIgMC00LTEuOC00LTRzMS44LTQgNC00IDQgMS44IDQgNC0xLjggNC00IDR6Ii8+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgyNHYyNEgwVjB6Ii8+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgMThjLTQuNDIgMC04LTMuNTgtOC04czMuNTgtOCA4LTggOCAzLjU4IDggOC0zLjU4IDgtOCA4eiIvPjwvc3ZnPg==" } 
+                        ]
+                    }
+                ]
+            };
+
+            const width = graphContainer.clientWidth;
+            const height = 600;
+            const root = d3.hierarchy(workflowData);
+            
+            // Store the initial positions
+            root.each(d => {
+                d.x0 = d.x;
+                d.y0 = d.y;
+            });
+
+            const simulation = d3.forceSimulation()
+                .force("link", d3.forceLink().id(d => d.id).distance(180).strength(1.2))
+                .force("charge", d3.forceManyBody().strength(-800))
+                .force("x", d3.forceX(width / 2).strength(0.15))
+                .force("y", d3.forceY(height / 2).strength(0.15));
+
+            const svg = d3.select(graphContainer).append("svg")
+                .attr("viewBox", [0, 0, width, height])
+                .style("font", "12px 'Inter', sans-serif");
+            
+            const g = svg.append("g");
+            let link = g.append("g").attr("class", "d3-link animated-link").selectAll("line");
+            let node = g.append("g").selectAll("g");
+
+            function update(event, source) {
+                const duration = event?.altKey ? 2500 : 500;
+                const nodes = root.descendants();
+                const links = root.links();
+
+                node = node.data(nodes, d => d.id).join(
+                    enter => {
+                        const g = enter.append("g").attr("class", "d3-node")
+                            .attr("transform", `translate(${source.x0}, ${source.y0}) scale(0)`)
+                            .call(drag(simulation))
+                            .on("click", (event, d) => {
+                                if (d.children) {
+                                    d._children = d.children;
+                                    d.children = null;
+                                } else {
+                                    d.children = d._children;
+                                    d._children = null;
+                                }
+                                update(event, d);
+                            })
+                            .on("mouseover", (event, d) => {
+                                tooltip.transition().duration(200).style("opacity", 1);
+                                tooltip.html(`<div style="font-weight: 700; margin-bottom: 4px;">${d.data.name}</div>${d.data.description || ''}`)
+                                    .style("left", (event.pageX + 15) + "px")
+                                    .style("top", (event.pageY - 28) + "px");
+
+                                d3.select(event.currentTarget).select('circle').transition().duration(200)
+                                    .attr('r', (d.depth === 0 ? 55 : (d.depth === 1 ? 45 : 35)));
+                            })
+                            .on("mouseout", (event, d) => {
+                                tooltip.transition().duration(500).style("opacity", 0);
+                                d3.select(event.currentTarget).select('circle').transition().duration(200)
+                                    .attr('r', (d.depth === 0 ? 50 : (d.depth === 1 ? 40 : 30)));
+                            });
+                        
+                        g.append("circle")
+                            .attr("r", d => d.depth === 0 ? 50 : (d.depth === 1 ? 40 : 30))
+                            .attr("fill", "#fff")
+                            .attr("stroke", d => d.data.type === 'primary' ? 'var(--primary-color)' : 'var(--border-color)')
+                            .attr("stroke-width", 3);
+
+                        const imageSize = d => d.depth === 0 ? 50 : (d.depth === 1 ? 40 : 30);
+                        g.append("image")
+                            .attr("xlink:href", d => d.data.icon)
+                            .attr("width", imageSize)
+                            .attr("height", imageSize)
+                            .attr("x", d => -imageSize(d) / 2)
+                            .attr("y", d => -imageSize(d) / 2);
+
+                        return g;
+                    },
+                    update => update,
+                    exit => exit.transition().duration(duration).ease(d3.easeCubicIn)
+                        .attr("transform", `translate(${source.x}, ${source.y}) scale(0)`)
+                        .remove()
+                );
+
+                node.transition().duration(duration).ease(d3.easeCubicOut)
+                    .attr("transform", d => `translate(${d.x}, ${d.y}) scale(1)`);
+                
+                node.select("circle").transition().duration(duration)
+                    .attr("stroke", d => d._children ? 'var(--secondary-color)' : (d.data.type === 'primary' ? 'var(--primary-color)' : 'var(--border-color)'));
+
+                link = link.data(links, d => d.source.id + "-" + d.target.id).join(
+                    enter => enter.append("line")
+                        .attr("stroke-opacity", 0),
+                    update => update,
+                    exit => exit.transition().duration(duration)
+                        .attr("stroke-opacity", 0)
+                        .remove()
+                );
+                
+                link.transition().duration(duration)
+                    .attr("stroke-opacity", 0.6);
+
+                simulation.nodes(nodes);
+                simulation.force("link").links(links);
+                simulation.alpha(0.3).restart();
+                
+                // Store the new positions for transitions.
+                root.each(d => {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+            }
+
+            function collapse(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                }
+            }
+            root.children.forEach(collapse);
+            
+            simulation.on("tick", () => {
+                link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+                node.attr("transform", d => `translate(${d.x},${d.y})`);
+            });
+
+            function drag(simulation) {
+                function dragstarted(event, d) { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
+                function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
+                function dragended(event, d) { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }
+                return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
+            }
+            
+            svg.call(d3.zoom().scaleExtent([0.3, 5]).on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            }));
+
+            update(null, root);
+        });
+    </script>
+</body>
+</html>
+

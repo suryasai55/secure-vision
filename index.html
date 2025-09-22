@@ -241,67 +241,140 @@
             margin: 0 10px;
         }
         
-        /* --- D3.js Interactive Workflow Styles --- */
+        /* --- Static Flowchart Styles --- */
         #how-it-works {
             background-color: var(--section-bg);
         }
 
-        #d3-workflow-graph {
-            width: 100%;
-            height: 600px;
+        .flowchart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .flowchart-step {
+            background: #fff;
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            background-color: #fff;
-            cursor: move;
-        }
-        
-        .d3-node {
-            cursor: pointer;
-        }
-        
-        .d3-node circle {
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            box-shadow: var(--shadow);
             transition: all 0.3s ease;
-            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1));
+            text-decoration: none;
+        }
+        .flowchart-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
         }
 
-        .d3-node:hover circle {
-            filter: drop-shadow(0px 4px 10px rgba(66, 133, 244, 0.4));
+        .flowchart-icon {
+            margin-bottom: 10px;
+        }
+        .flowchart-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--primary-color);
+        }
+
+        .flowchart-step h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-text);
+        }
+
+        .flowchart-step.highlight {
+            background-color: var(--primary-color);
+        }
+        .flowchart-step.highlight .flowchart-icon svg,
+        .flowchart-step.highlight h3 {
+            color: #fff;
+        }
+
+        .flowchart-arrow {
+            color: var(--border-color);
         }
         
-        .d3-link {
-            stroke: var(--border-color);
-            stroke-width: 2px;
-            transition: stroke-opacity 0.5s ease;
+        @media (max-width: 960px) {
+            .flowchart-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
         }
-
-        .animated-link {
-            stroke-dasharray: 8 4;
-            animation: dash 1s linear infinite;
-        }
-
-        @keyframes dash {
-            to {
-                stroke-dashoffset: -24;
+        @media (max-width: 480px) {
+            .flowchart-step {
+                width: 180px;
+                height: 180px;
             }
         }
         
-        .d3-tooltip {
-            position: absolute;
-            text-align: left;
-            width: auto;
-            max-width: 220px;
-            padding: 10px 14px;
-            font: 13px 'Inter', sans-serif;
-            background: var(--dark-text);
-            color: #fff;
-            border: 0px;
-            border-radius: 8px;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        /* --- Workflow Detail Sections --- */
+        .workflow-detail-section {
+            padding-top: 80px;
         }
-        
+        .workflow-detail-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            align-items: center;
+            gap: 60px;
+        }
+         .workflow-detail-content.right {
+            grid-template-columns: 2fr 1fr;
+        }
+        .detail-icon {
+            text-align: center;
+        }
+        .detail-icon svg {
+            width: 120px;
+            height: 120px;
+            color: var(--primary-color);
+        }
+        .detail-text h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--dark-text);
+        }
+         .detail-text p {
+             font-size: 1.1rem;
+             color: var(--light-text);
+             margin-bottom: 20px;
+         }
+         .detail-text ul {
+             list-style: none;
+             padding-left: 0;
+         }
+         .detail-text ul li {
+             position: relative;
+             padding-left: 28px;
+             margin-bottom: 12px;
+             font-size: 1.05rem;
+         }
+        .detail-text ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        @media (max-width: 768px) {
+            .workflow-detail-content, .workflow-detail-content.right {
+                 grid-template-columns: 1fr;
+            }
+             .workflow-detail-content.right .detail-icon {
+                 order: -1;
+             }
+        }
+
+
         /* --- Features Section --- */
         .features-grid {
             display: grid;
@@ -309,16 +382,14 @@
             gap: 24px;
         }
         .feature-card {
-            background: var(--section-bg);
+            background: #fff;
             padding: 28px;
             border-radius: 12px;
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
         }
         .feature-card:hover {
             transform: translateY(-5px);
-            border-color: var(--border-color);
-            background-color: #fff;
+            box-shadow: var(--shadow-hover);
         }
         .feature-card h3 {
             color: var(--primary-color);
@@ -360,33 +431,27 @@
         /* --- Team Section --- */
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px 24px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
             justify-content: center;
         }
         .team-member {
             text-align: center;
-        }
-        .team-member img {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #fff;
-            box-shadow: var(--shadow);
-            margin-bottom: 16px;
-            transition: transform 0.3s ease;
-        }
-        .team-member:hover img {
-            transform: scale(1.05);
+            background: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
         }
         .team-member h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 700;
+            color: var(--dark-text);
         }
         .team-member p {
-            color: var(--light-text);
-            font-weight: 500;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 4px;
         }
 
         /* --- Footer --- */
@@ -456,12 +521,59 @@
             <div class="container">
                 <div class="section-header reveal">
                     <h2>Our Intelligent Defense Mechanism</h2>
-                    <p>An interactive look at our AI pipeline. Click nodes to expand and collapse, and drag them to explore the connections.</p>
+                    <p>Our system follows a clear, four-step process. Click on any step to learn more about the technology behind it.</p>
                 </div>
-                <div id="d3-workflow-graph" class="reveal"></div>
+                <div class="flowchart-container reveal">
+                    <!-- Step 1 -->
+                    <a href="#ingestion-details" class="flowchart-step">
+                        <div class="flowchart-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" /></svg>
+                        </div>
+                        <h3>1. Ingestion</h3>
+                    </a>
+
+                    <!-- Arrow -->
+                    <div class="flowchart-arrow">
+                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19" stroke="#dadce0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 5L19 12L12 19" stroke="#dadce0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <a href="#analysis-details" class="flowchart-step">
+                        <div class="flowchart-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg>
+                        </div>
+                        <h3>2. Analysis</h3>
+                    </a>
+
+                    <!-- Arrow -->
+                    <div class="flowchart-arrow">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19" stroke="#dadce0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 5L19 12L12 19" stroke="#dadce0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <a href="#ai-core-details" class="flowchart-step highlight">
+                        <div class="flowchart-icon">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>
+                        </div>
+                        <h3>3. AI Decision</h3>
+                    </a>
+
+                    <!-- Arrow -->
+                    <div class="flowchart-arrow">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19" stroke="#dadce0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 5L19 12L12 19" stroke="#dadce0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <a href="#action-details" class="flowchart-step">
+                        <div class="flowchart-icon">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" /></svg>
+                        </div>
+                        <h3>4. Action</h3>
+                    </a>
+                </div>
             </div>
         </section>
-        
+
         <section id="features">
             <div class="container">
                 <div class="section-header reveal">
@@ -479,7 +591,84 @@
             </div>
         </section>
 
-        <section id="extension-in-action" style="background-color: var(--section-bg);">
+        <!-- WORKFLOW DETAIL SECTIONS -->
+        <section id="ingestion-details" class="workflow-detail-section">
+            <div class="container reveal">
+                <div class="workflow-detail-content">
+                    <div class="detail-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" /></svg>
+                    </div>
+                    <div class="detail-text">
+                        <h2>1. Ingestion Deep Dive</h2>
+                        <p>The first step in our defense process is to gather data from every possible entry point for a phishing attack. Our system is designed to be multi-platform, ensuring no vector is left unprotected.</p>
+                        <ul>
+                            <li><strong>Email Scanning:</strong> Connects to email clients to parse incoming mail, including headers, body content, and attachments.</li>
+                            <li><strong>URL Analysis:</strong> The browser extension intercepts all web requests to analyze the destination URL before the page loads.</li>
+                            <li><strong>Application Monitoring:</strong> Actively monitors application behavior to detect suspicious activities like unexpected login prompts or data requests.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis-details" class="workflow-detail-section" style="background-color: var(--section-bg);">
+             <div class="container reveal">
+                <div class="workflow-detail-content right">
+                    <div class="detail-text">
+                        <h2>2. Analysis Deep Dive</h2>
+                        <p>Once data is ingested, our system uses a suite of specialized models to break it down and extract meaningful signals that can indicate a threat.</p>
+                        <ul>
+                            <li><strong>Natural Language Processing (NLP):</strong> Analyzes text for urgency, tone, grammatical errors, and other linguistic markers common in phishing scams.</li>
+                            <li><strong>Visual AI:</strong> Scans websites for brand impersonation by comparing logos, fonts, and layouts to known legitimate sites.</li>
+                            <li><strong>Heuristic & Reputation Analysis:</strong> Cross-references URLs and IP addresses against global databases of known malicious actors.</li>
+                        </ul>
+                    </div>
+                     <div class="detail-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="ai-core-details" class="workflow-detail-section">
+             <div class="container reveal">
+                <div class="workflow-detail-content">
+                    <div class="detail-icon">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>
+                    </div>
+                    <div class="detail-text">
+                        <h2>3. AI Decision Core</h2>
+                        <p>This is the brain of Secure Vision. All the extracted signals and features are fed into our state-of-the-art deep learning model for a final, highly accurate verdict.</p>
+                        <ul>
+                            <li><strong>LSTM/Transformer Model:</strong> We utilize a powerful neural network architecture capable of understanding context and identifying complex patterns that simple filters would miss.</li>
+                            <li><strong>Real-Time Classification:</strong> The model is optimized for speed, delivering a "safe" or "malicious" verdict in a matter of milliseconds.</li>
+                            <li><strong>Confidence Scoring:</strong> Each decision is accompanied by a confidence score, which determines the severity of the warning given to the user.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="action-details" class="workflow-detail-section" style="background-color: var(--section-bg);">
+             <div class="container reveal">
+                <div class="workflow-detail-content right">
+                     <div class="detail-text">
+                        <h2>4. Action & Learning</h2>
+                        <p>Based on the AI's decision, Secure Vision takes immediate, automated steps to protect the user and improve the system.</p>
+                        <ul>
+                            <li><strong>Block & Quarantine:</strong> Confirmed high-risk threats result in the website being blocked or the email being quarantined instantly.</li>
+                            <li><strong>Tiered User Alerts:</strong> For low and medium-risk threats, clear, non-intrusive warnings are provided, empowering the user to make an informed decision.</li>
+                            <li><strong>Feedback Loop:</strong> Every action and result is fed back into our system, allowing the AI model to continuously learn from new threats and become even smarter over time.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" /></svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="extension-in-action">
             <div class="container">
                 <div class="section-header reveal">
                     <h2>Our Browser Extension in Action</h2>
@@ -544,33 +733,28 @@
                 <div class="team-grid reveal">
                     <!-- Member 1 -->
                     <div class="team-member">
-                        <img src="https://placehold.co/140x140/E8F0FE/4285F4?text=S" alt="Team Member Surya">
-                        <h3>Surya</h3><p>Team Lead & AI/ML Specialist</p>
+                        <h3>S.Venkata Naga Surendra</h3>
+                        <p>(Team Lead)</p>
                     </div>
                     <!-- Member 2 -->
                     <div class="team-member">
-                        <img src="https://placehold.co/140x140/E6F4EA/34A853?text=M2" alt="Team Member 2">
-                        <h3>[Member 2 Name]</h3><p>Backend & Cloud Architect</p>
+                        <h3>Maram Venkata Vishnu Vardhan Reddy</h3>
                     </div>
                     <!-- Member 3 -->
                     <div class="team-member">
-                        <img src="https://placehold.co/140x140/FCE8E6/EA4335?text=M3" alt="Team Member 3">
-                        <h3>[Member 3 Name]</h3><p>Frontend & UI/UX Design</p>
+                        <h3>Morampudi Surya Sai</h3>
                     </div>
                     <!-- Member 4 -->
                     <div class="team-member">
-                        <img src="https://placehold.co/140x140/FEF7E0/FBBC04?text=M4" alt="Team Member 4">
-                        <h3>[Member 4 Name]</h3><p>Lead Researcher & Data</p>
+                        <h3>Shaik Umar Sadhiq</h3>
                     </div>
                     <!-- Member 5 -->
                     <div class="team-member">
-                        <img src="https://placehold.co/140x140/E8E8E8/5F6368?text=M5" alt="Team Member 5">
-                        <h3>[Member 5 Name]</h3><p>DevOps & System Integration</p>
+                        <h3>Vegesna Pushpa Valli</h3>
                     </div>
                     <!-- Member 6 -->
                     <div class="team-member">
-                        <img src="https://placehold.co/140x140/D2E3FC/1A73E8?text=M6" alt="Team Member 6">
-                        <h3>[Member 6 Name]</h3><p>Documentation & Presentation</p>
+                        <h3>Alamuri Akhila Reddy</h3>
                     </div>
                 </div>
             </div>
@@ -583,10 +767,9 @@
             <p class="footer-text">Developed with passion for the Smart India Hackathon 2025.</p>
         </div>
     </footer>
-    <div id="tooltip" class="d3-tooltip"></div>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
     <script>
-        // --- SCRIPT FOR SCROLL ANIMATIONS, NAV LINKS, AND D3 GRAPH ---
+        // --- SCRIPT FOR SCROLL ANIMATIONS, NAV LINKS ---
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- SCROLL & NAV SCRIPT ---
@@ -629,202 +812,6 @@
             revealOnScroll();
             updateActiveNavLink();
 
-            // --- D3.js INTERACTIVE WORKFLOW SCRIPT ---
-            const graphContainer = document.getElementById('d3-workflow-graph');
-            if (!graphContainer) {
-                console.error("D3 graph container '#d3-workflow-graph' not found.");
-                return;
-            }
-
-            const tooltip = d3.select("body").append("div")
-                .attr("id", "tooltip")
-                .attr("class", "d3-tooltip");
-
-            const workflowData = {
-                name: "Secure Vision Core",
-                description: "The central AI engine that orchestrates the entire defense process.",
-                icon: "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDIyQzEyIDIyIDIwIDE4IDIwIDEyVjVMMTIgMkw0IDV2N0M0IDE4IDEyIDIyIDEyIDIyWiIgc3Ryb2tlPSIjNDI4NUY0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==",
-                children: [
-                    {
-                        name: "1. Ingestion",
-                        description: "Collects real-time data from all potential threat vectors.",
-                        icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjcuMyAyLjY2N2gtMTljLTIuNTcgMC00LjY2NyAyLjA5Ny00LjY2NyA0LjY2N3YyMS4zMzNjMCAyLjU3IDIuMDk3IDQuNjY3IDQuNjY3IDQuNjY3aDIxLjMzM2MyLjU3IDAgNC42NjctMi4wOTcgNC42NjctNC42Njd2LTE2YzAtMC43MzYtMC41OTctMS4zMzMtMS4zMzMtMS4zMzNzLTEuMzMzIDAuNTk3LTEuMzMzIDEuMzMzdjE2YzAgMS4xMDMtMC4xOTUgMS45OTktMS45OTkgMS45OTloLTIxLjMzNWMtMS4xMDMgMC0xLjk5OS0wLjg5NS0xLjk5OS0xLjk5OXYtMjEuMzMzYzAtMS4xMDMgMC44OTUtMS45OTkgMS45OTktMS45OTloMTljMS4xMDMgMCAxLjk5OSAwLjg5NSAxLjk5OSAxLjk5OXYzLjMzM2MwIDAuNzM2IDAuNTk3IDEuMzMzIDEuMzMzIDEuMzMzcyAxLjMzMy0wLjU5NyAxLjMzMy0xLjMzM3YtMy4zMzNjMC0yLjU3LTIuMDk3LTQuNjY3LTQuNjY3LTQuNjY3ek0xMy4zMzMgMTcuMzMzaC00Yy0wLjczNiAwLTEuMzMzLTAuNTk3LTEuMzMzLTEuMzMzcyAwLjU5Ny0xLjMzMyAxLjMzMy0xLjMzM2g0di00YzAtMC43MzYgMC41OTctMS4zMzMgMS4zMzMtMS4zMzNzIDEuMzMzIDAuNTk3IDEuMzMzIDEuMzMzdjRoNGMwLjczNiAwIDEuMzMzIDAuNTk3IDEuMzMzIDEuMzMzcy0wLjU5NyAxLjMzMy0xLjMzMyAxLjMzM2gtNHY0YzAgMC43MzYtMC41OTcgMS4zMzMtMS4zMzMgMS4zMzNzLTEuMzMzLTAuNTk3LTEuMzMzLTEuMzMzdj00eiIvPjwvc3ZnPg==",
-                        children: [ 
-                            { name: "Emails & Text", description: "Scans incoming text for malicious content, sentiment, and suspicious links.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIwIDRoLTRMMTQgMkgxMGwtMiAyaC00Yy0xLjEgMC0yIC45LTIgMnYxMmMwIDEuMS45IDIgMiAyaDE2YzEuMSAwIDItLjkgMi0ydi0xMmMwLTEuMS0uOS0yLTItMnpNMTIgNWMxLjY2IDAgMyAxLjM0IDMgM3MtMS4zNCAzLTMgMy0zLTEuMzQtMy0zIDEuMzQtMyAzLTN6bTYgOWgtMTJ2LTFjMC0yIDQuNDgtMy42IDYuNS0zLjZzNi41IDEuNiA2LjUgMy42djF6Ii8+PC9zdmc+" }, 
-                            { name: "Web URLs", description: "Analyzes URLs against reputation databases and checks for typosquatting.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDJDNi40OCA MiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyeiBtMCAxOGMtNC40MSAwLTgtMy41OS04LThzMy41OS04IDgtOCA4IDMuNTkgOCA4LTMuNTkgOC04IDh6bTMuNS05SDIyYzAtMy41LTIuNS02LjUtNi03djEuNWMyLjUgMCA0LjUgMiA0LjUgNC41ek0xMSAxLjA1Yy0yLjA4IDAtNCAuNjktNS40NyAxLjg0TDE2LjE2IDEzLjVjMS4xNS0xLjQ3IDEuODQtMy4zOSAxLjg0LTUuNDcgMC0yLjc2LTIuMjQtNS01LTV6TTUuODQgOS44NEwyIDE1di0yLjM1YzAtMi4wOC42OS00IDEuODQtNS40N3oiLz48L3N2Zz4=" }, 
-                            { name: "App Behavior", description: "Monitors applications for suspicious activities like unexpected credential prompts.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE2IDFINmwtMyA1bDEwIDE4IDEwLTE4LTQtNXptLTcgMTJsLTYtMTAgMS41LTNjMy45MSAyLjcgNS41IDUgNS41IDVoLTF6bS41LTEySDkuNzNsLS43MyAySDl2LTJ6bTEuNSA2aC0zdi0ySDVWOS41bDEuNS0uNTVMMTAgMTBoMXYzem0zLjUgNmgtNlYxMWg2djh6Ii8+PC9zdmc+" } 
-                        ]
-                    },
-                    {
-                        name: "2. Analysis",
-                        description: "Extracts features and signals from the raw data using specialized models.",
-                        icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE5IDNINWMtMS4xMSAwLTIgLjg5LTIgMnYxNGMwIDEuMTEuODkgMiAyIDJoMTRjMS4xMSAwIDItLjg5IDItMlY1YzAgLTEuMTEtLjg5LTItMi0yem0wIDE2SDVWNWgxNHYxNHptLTUtOGgtMnY0aDJ2LTR6bS00IDBoMnYyaC0ydi0yem04IDBoMnYyaC0ydi0yem0tMS41LTEuNUwxMyAxMy41bDEuNSA0LjVIMTB2LTZoMy41bDEuNS0uNXoiLz48L3N2Zz4=",
-                        children: [ 
-                            { name: "NLP", description: "Natural Language Processing to understand the intent and context of text.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIyIDZINGMtMS4xIDAtMiAuOS0yIDJ2OGMwIDEuMS45IDIgMiAyaDE4YzEuMSAwIDItLjkgMi0yVjBjMC0xLjEtLjktMi0yLTJ6bTAgMTBINDZWN2gxNnYxek00IDRoMnYyaC0yVjR6bTQgMGgydjJoLTI2ek0xIDRoMnYyaC0yVjR6Ii8+PC9zdmc+" }, 
-                            { name: "Reputation DB", description: "Cross-references links and domains with known blacklists of malicious sites.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTQgNGMwLTIuMjEgMS43OS00IDQtNGgxNGMyLjIxIDAgNCAxLjc5IDQgNHYxNGMwIDIuMjEtMS43OSA0LTQgNEg0VjR6bTIgMTZIMjBWNmgtMTR2MTR6bTIuNS04aDl2LTJoLTl2MnptMC00aDl2LTJoLTl2MnoiLz48L3N2Zz4=" }, 
-                            { name: "Visual AI", description: "Computer Vision detects brand impersonation by analyzing logos and site layouts.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMy4yIi8+PHBhdGggZD0iTTkgMmw2LjMtNi4zQzIwLjggNi4xIDE3LjkgOSA5LjUgOS01LjQgOSA0LjYgMTIgMS4yIDEyIDQuNSA5LjUgOC42IDEyIDEyIDQuNSAyLjcgMi43IDUtNSA1LTItMi4yIDEuOC00IDQtNHoiLz48L3N2Zz4=" }, 
-                            { name: "UI Checks", description: "Analyzes the user interface for suspicious elements like fake login forms.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEzIDZ2MTJoNmwtMy00IDMtNGgtNnptLTQgMmg4djJIM1Zwem0wIDRoOHYySDV2LTJ6bTAtNGg4djJIM1Y4eiIvPjwvc3ZnPg==" } 
-                        ]
-                    },
-                    {
-                        name: "3. AI Decision Core",
-                        type: "primary",
-                        description: "The brain of the operation, where a final decision is made.",
-                        icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE5Ljc3IDE5LjIzaDEuOThjLjEzIDAgLjI0LS4wOS4yNi0uMjJsMS4zOS05LjM5Yy4wMy0uMi0uMDQtLjQtLjItLjUzbC04LjQtOC40Yy0uMi0uMi0uNS0uMi0uNyAwbC04LjQgOC40Yy0uMTYuMTYtLjIzLjM2LS4yLjUzbDEuMzkgOS4zOWMuMDIuMTMuMTMuMjIuMjYuMjJoMS45OGw0LjQ4LTQuNDhjLjItLjIuNS0uMi43IDBsNC40OCA0LjQ4ek0xNSA5aC0ydi0yaDJ2MnptLTQgMGgtMnYtMmgydjJ6bS00IDBoLTJ2LTJoMnYyem0xMiAwaC0ydi0yaDJ2MnoiLz48L3N2Zz4=",
-                        children: [ 
-                            { name: "LSTM/Transformer", description: "A state-of-the-art deep learning model makes the final classification: safe or malicious.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgMThjLTQuNDEgMC04LTMuNTktOC04czMuNTktOCA4LTggOCAzLjU5IDggOC0zLjU5IDgtOCA4em0tMSA1SDZ2Mmg1di0yem0yIDBoNXYyaC01di0yem0tNCA0aDh2MmgtOHYtMnoiLz48L3N2Zz4=" } 
-                        ]
-                    },
-                    {
-                        name: "4. Automated Action",
-                        description: "Executes the decision in real-time to protect the user.",
-                        icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTcgMnYxMUwzIDdoMnYxMWwtNCA2aDE4bC00LTZ2LTExaDJMNzIgMnYxMXoiLz48L3N2Zz4=",
-                        children: [ 
-                            { name: "Block Threat", description: "Immediately blocks access to confirmed phishing sites and malicious downloads.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDJDNi40OCA MiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyeiBtNCAxM0g4di0yaDh2MnptMC00SDhWOTh2MnoiLz48L3N2Zz4=" }, 
-                            { name: "Alert User", description: "Issues clear, tiered warnings to the user based on the assessed threat level.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDIyYy0xLjEgMC0yLS45LTItMlY0YzAtMS4xLjktMiAyLTJoLjVjMS4xIDAgMiAuOSAyIDJ2MTZjMCAxLjEtLjkgMi0yIDJ6bTYtMTJ2MTBoMi41YzEuMSAwIDItLjkgMi0yVjZoLTIuNWMtMS4xIDAtMiAuOXptLTE0IDB2MTBIOWMxLjEgMCAyLS45IDItMlY2SDhjLTEuMSAwLTIgLjl6Ii8+PC9zdmc+" }, 
-                            { name: "Learning Loop", description: "Feeds the result back into the system to continuously improve the AI model's accuracy.", icon: "data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDZjLTMuMzEgMC02IDIuNjktNiA2czIuNjkgNiA2IDYgNi0yLjY5IDYtNi0yLjY5LTYtNi02em0wIDEwYy0yLjIgMC00LTEuOC00LTRzMS44LTQgNC00IDQgMS44IDQgNC0xLjggNC00IDR6Ii8+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgyNHYyNEgwVjB6Ii8+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgMThjLTQuNDIgMC04LTMuNTgtOC04czMuNTgtOCA4LTggOCAzLjU4IDggOC0zLjU4IDgtOCA4eiIvPjwvc3ZnPg==" } 
-                        ]
-                    }
-                ]
-            };
-
-            const width = graphContainer.clientWidth;
-            const height = 600;
-            const root = d3.hierarchy(workflowData);
-            
-            // Store the initial positions
-            root.each(d => {
-                d.x0 = d.x;
-                d.y0 = d.y;
-            });
-
-            const simulation = d3.forceSimulation()
-                .force("link", d3.forceLink().id(d => d.id).distance(180).strength(1.2))
-                .force("charge", d3.forceManyBody().strength(-800))
-                .force("x", d3.forceX(width / 2).strength(0.15))
-                .force("y", d3.forceY(height / 2).strength(0.15));
-
-            const svg = d3.select(graphContainer).append("svg")
-                .attr("viewBox", [0, 0, width, height])
-                .style("font", "12px 'Inter', sans-serif");
-            
-            const g = svg.append("g");
-            let link = g.append("g").attr("class", "d3-link animated-link").selectAll("line");
-            let node = g.append("g").selectAll("g");
-
-            function update(event, source) {
-                const duration = event?.altKey ? 2500 : 500;
-                const nodes = root.descendants();
-                const links = root.links();
-
-                node = node.data(nodes, d => d.id).join(
-                    enter => {
-                        const g = enter.append("g").attr("class", "d3-node")
-                            .attr("transform", `translate(${source.x0}, ${source.y0}) scale(0)`)
-                            .call(drag(simulation))
-                            .on("click", (event, d) => {
-                                if (d.children) {
-                                    d._children = d.children;
-                                    d.children = null;
-                                } else {
-                                    d.children = d._children;
-                                    d._children = null;
-                                }
-                                update(event, d);
-                            })
-                            .on("mouseover", (event, d) => {
-                                tooltip.transition().duration(200).style("opacity", 1);
-                                tooltip.html(`<div style="font-weight: 700; margin-bottom: 4px;">${d.data.name}</div>${d.data.description || ''}`)
-                                    .style("left", (event.pageX + 15) + "px")
-                                    .style("top", (event.pageY - 28) + "px");
-
-                                d3.select(event.currentTarget).select('circle').transition().duration(200)
-                                    .attr('r', (d.depth === 0 ? 55 : (d.depth === 1 ? 45 : 35)));
-                            })
-                            .on("mouseout", (event, d) => {
-                                tooltip.transition().duration(500).style("opacity", 0);
-                                d3.select(event.currentTarget).select('circle').transition().duration(200)
-                                    .attr('r', (d.depth === 0 ? 50 : (d.depth === 1 ? 40 : 30)));
-                            });
-                        
-                        g.append("circle")
-                            .attr("r", d => d.depth === 0 ? 50 : (d.depth === 1 ? 40 : 30))
-                            .attr("fill", "#fff")
-                            .attr("stroke", d => d.data.type === 'primary' ? 'var(--primary-color)' : 'var(--border-color)')
-                            .attr("stroke-width", 3);
-
-                        const imageSize = d => d.depth === 0 ? 50 : (d.depth === 1 ? 40 : 30);
-                        g.append("image")
-                            .attr("xlink:href", d => d.data.icon)
-                            .attr("width", imageSize)
-                            .attr("height", imageSize)
-                            .attr("x", d => -imageSize(d) / 2)
-                            .attr("y", d => -imageSize(d) / 2);
-
-                        return g;
-                    },
-                    update => update,
-                    exit => exit.transition().duration(duration).ease(d3.easeCubicIn)
-                        .attr("transform", `translate(${source.x}, ${source.y}) scale(0)`)
-                        .remove()
-                );
-
-                node.transition().duration(duration).ease(d3.easeCubicOut)
-                    .attr("transform", d => `translate(${d.x}, ${d.y}) scale(1)`);
-                
-                node.select("circle").transition().duration(duration)
-                    .attr("stroke", d => d._children ? 'var(--secondary-color)' : (d.data.type === 'primary' ? 'var(--primary-color)' : 'var(--border-color)'));
-
-                link = link.data(links, d => d.source.id + "-" + d.target.id).join(
-                    enter => enter.append("line")
-                        .attr("stroke-opacity", 0),
-                    update => update,
-                    exit => exit.transition().duration(duration)
-                        .attr("stroke-opacity", 0)
-                        .remove()
-                );
-                
-                link.transition().duration(duration)
-                    .attr("stroke-opacity", 0.6);
-
-                simulation.nodes(nodes);
-                simulation.force("link").links(links);
-                simulation.alpha(0.3).restart();
-                
-                // Store the new positions for transitions.
-                root.each(d => {
-                    d.x0 = d.x;
-                    d.y0 = d.y;
-                });
-            }
-
-            function collapse(d) {
-                if (d.children) {
-                    d._children = d.children;
-                    d._children.forEach(collapse);
-                    d.children = null;
-                }
-            }
-            root.children.forEach(collapse);
-            
-            simulation.on("tick", () => {
-                link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
-                    .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
-                node.attr("transform", d => `translate(${d.x},${d.y})`);
-            });
-
-            function drag(simulation) {
-                function dragstarted(event, d) { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
-                function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
-                function dragended(event, d) { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }
-                return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
-            }
-            
-            svg.call(d3.zoom().scaleExtent([0.3, 5]).on("zoom", (event) => {
-                g.attr("transform", event.transform);
-            }));
-
-            update(null, root);
         });
     </script>
 </body>

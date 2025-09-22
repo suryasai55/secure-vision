@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -115,8 +115,8 @@
             align-items: center;
         }
         .nav-logo img {
-            width: 69px;
-            height: 69px;
+            width: 36px;
+            height: 36px;
             margin-right: 12px;
             border-radius: 50%;
         }
@@ -256,7 +256,7 @@
 
         .flowchart-step {
             background: #fff;
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             border-radius: 50%;
             width: 200px;
             height: 200px;
@@ -269,9 +269,15 @@
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
             text-decoration: none;
+            cursor: pointer;
         }
         .flowchart-step:hover {
             transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        .flowchart-step.active-step {
+            border-color: var(--primary-color);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: var(--shadow-hover);
         }
 
@@ -316,14 +322,26 @@
         }
         
         /* --- Workflow Detail Sections --- */
-        .workflow-detail-section {
-            padding-top: 80px;
+        .workflow-detail-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        margin-top 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
+        .workflow-detail-wrapper.active {
+            max-height: 600px; /* Adjust if content is taller */
+            margin-top: 60px;
+        }
+
         .workflow-detail-content {
             display: grid;
             grid-template-columns: 1fr 2fr;
             align-items: center;
             gap: 60px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
         }
          .workflow-detail-content.right {
             grid-template-columns: 2fr 1fr;
@@ -376,6 +394,9 @@
 
 
         /* --- Features Section --- */
+        #features {
+             background-color: var(--section-bg);
+        }
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -403,7 +424,7 @@
 
         /* --- Tech Stack --- */
         #tech-stack {
-            background-color: var(--section-bg);
+            /* background-color: var(--section-bg); */
         }
         .tech-grid {
             display: flex;
@@ -429,6 +450,9 @@
         }
         
         /* --- Team Section --- */
+        #team {
+            background-color: var(--section-bg);
+        }
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -497,7 +521,7 @@
     <nav class="navbar">
         <div class="container nav-container">
             <a href="#home" class="nav-logo">
-                <img src="logo.ico" alt="Secure Vision Logo">
+                <img src="logo.jpg" alt="Secure Vision Logo">
                 Secure Vision
             </a>
             <ul class="nav-links">
@@ -531,12 +555,12 @@
                 </div>
                 <div class="flowchart-container reveal">
                     <!-- Step 1 -->
-                    <a href="#ingestion-details" class="flowchart-step">
+                    <div class="flowchart-step" data-target="ingestion-details">
                         <div class="flowchart-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" /></svg>
                         </div>
                         <h3>1. Ingestion</h3>
-                    </a>
+                    </div>
 
                     <!-- Arrow -->
                     <div class="flowchart-arrow">
@@ -544,12 +568,12 @@
                     </div>
 
                     <!-- Step 2 -->
-                    <a href="#analysis-details" class="flowchart-step">
+                    <div class="flowchart-step" data-target="analysis-details">
                         <div class="flowchart-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg>
                         </div>
                         <h3>2. Analysis</h3>
-                    </a>
+                    </div>
 
                     <!-- Arrow -->
                     <div class="flowchart-arrow">
@@ -557,12 +581,12 @@
                     </div>
 
                     <!-- Step 3 -->
-                    <a href="#ai-core-details" class="flowchart-step highlight">
+                    <div class="flowchart-step highlight" data-target="ai-core-details">
                         <div class="flowchart-icon">
                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>
                         </div>
                         <h3>3. AI Decision</h3>
-                    </a>
+                    </div>
 
                     <!-- Arrow -->
                     <div class="flowchart-arrow">
@@ -570,16 +594,87 @@
                     </div>
                     
                     <!-- Step 4 -->
-                    <a href="#action-details" class="flowchart-step">
+                    <div class="flowchart-step" data-target="action-details">
                         <div class="flowchart-icon">
                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" /></svg>
                         </div>
                         <h3>4. Action</h3>
-                    </a>
+                    </div>
+                </div>
+
+                <!-- WORKFLOW DETAIL SECTIONS CONTAINER -->
+                <div id="workflow-details-container">
+                    <div id="ingestion-details" class="workflow-detail-wrapper reveal">
+                        <div class="workflow-detail-content">
+                            <div class="detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" /></svg>
+                            </div>
+                            <div class="detail-text">
+                                <h2>1. Ingestion Deep Dive</h2>
+                                <p>The first step in our defense process is to gather data from every possible entry point for a phishing attack. Our system is designed to be multi-platform, ensuring no vector is left unprotected.</p>
+                                <ul>
+                                    <li><strong>Email Scanning:</strong> Connects to email clients to parse incoming mail, including headers, body content, and attachments.</li>
+                                    <li><strong>URL Analysis:</strong> The browser extension intercepts all web requests to analyze the destination URL before the page loads.</li>
+                                    <li><strong>Application Monitoring:</strong> Actively monitors application behavior to detect suspicious activities like unexpected login prompts or data requests.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="analysis-details" class="workflow-detail-wrapper reveal">
+                        <div class="workflow-detail-content right">
+                            <div class="detail-text">
+                                <h2>2. Analysis Deep Dive</h2>
+                                <p>Once data is ingested, our system uses a suite of specialized models to break it down and extract meaningful signals that can indicate a threat.</p>
+                                <ul>
+                                    <li><strong>Natural Language Processing (NLP):</strong> Analyzes text for urgency, tone, grammatical errors, and other linguistic markers common in phishing scams.</li>
+                                    <li><strong>Visual AI:</strong> Scans websites for brand impersonation by comparing logos, fonts, and layouts to known legitimate sites.</li>
+                                    <li><strong>Heuristic & Reputation Analysis:</strong> Cross-references URLs and IP addresses against global databases of known malicious actors.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="ai-core-details" class="workflow-detail-wrapper reveal">
+                        <div class="workflow-detail-content">
+                            <div class="detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>
+                            </div>
+                            <div class="detail-text">
+                                <h2>3. AI Decision Core</h2>
+                                <p>This is the brain of Secure Vision. All the extracted signals and features are fed into our state-of-the-art deep learning model for a final, highly accurate verdict.</p>
+                                <ul>
+                                    <li><strong>LSTM/Transformer Model:</strong> We utilize a powerful neural network architecture capable of understanding context and identifying complex patterns that simple filters would miss.</li>
+                                    <li><strong>Real-Time Classification:</strong> The model is optimized for speed, delivering a "safe" or "malicious" verdict in a matter of milliseconds.</li>
+                                    <li><strong>Confidence Scoring:</strong> Each decision is accompanied by a confidence score, which determines the severity of the warning given to the user.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="action-details" class="workflow-detail-wrapper reveal">
+                        <div class="workflow-detail-content right">
+                            <div class="detail-text">
+                                <h2>4. Action & Learning</h2>
+                                <p>Based on the AI's decision, Secure Vision takes immediate, automated steps to protect the user and improve the system.</p>
+                                <ul>
+                                    <li><strong>Block & Quarantine:</strong> Confirmed high-risk threats result in the website being blocked or the email being quarantined instantly.</li>
+                                    <li><strong>Tiered User Alerts:</strong> For low and medium-risk threats, clear, non-intrusive warnings are provided, empowering the user to make an informed decision.</li>
+                                    <li><strong>Feedback Loop:</strong> Every action and result is fed back into our system, allowing the AI model to continuously learn from new threats and become even smarter over time.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" /></svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-
+        
         <section id="features">
             <div class="container">
                 <div class="section-header reveal">
@@ -593,83 +688,6 @@
                     <div class="feature-card"><h3>Instant Alerts & Blocking</h3><p>Immediately blocks malicious sites and quarantines suspicious emails with clear user notifications.</p></div>
                     <div class="feature-card"><h3>Visual Impersonation AI</h3><p>Uses computer vision to detect subtle logo changes, typosquatting, and visual similarities in fake websites.</p></div>
                     <div class="feature-card"><h3>Continuous Learning Loop</h3><p>Our models constantly learn from new global threats, ensuring the system becomes smarter and more effective over time.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- WORKFLOW DETAIL SECTIONS -->
-        <section id="ingestion-details" class="workflow-detail-section">
-            <div class="container reveal">
-                <div class="workflow-detail-content">
-                    <div class="detail-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M9 12l3 3m0 0l3-3m-3 3V2.25" /></svg>
-                    </div>
-                    <div class="detail-text">
-                        <h2>1. Ingestion Deep Dive</h2>
-                        <p>The first step in our defense process is to gather data from every possible entry point for a phishing attack. Our system is designed to be multi-platform, ensuring no vector is left unprotected.</p>
-                        <ul>
-                            <li><strong>Email Scanning:</strong> Connects to email clients to parse incoming mail, including headers, body content, and attachments.</li>
-                            <li><strong>URL Analysis:</strong> The browser extension intercepts all web requests to analyze the destination URL before the page loads.</li>
-                            <li><strong>Application Monitoring:</strong> Actively monitors application behavior to detect suspicious activities like unexpected login prompts or data requests.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="analysis-details" class="workflow-detail-section" style="background-color: var(--section-bg);">
-             <div class="container reveal">
-                <div class="workflow-detail-content right">
-                    <div class="detail-text">
-                        <h2>2. Analysis Deep Dive</h2>
-                        <p>Once data is ingested, our system uses a suite of specialized models to break it down and extract meaningful signals that can indicate a threat.</p>
-                        <ul>
-                            <li><strong>Natural Language Processing (NLP):</strong> Analyzes text for urgency, tone, grammatical errors, and other linguistic markers common in phishing scams.</li>
-                            <li><strong>Visual AI:</strong> Scans websites for brand impersonation by comparing logos, fonts, and layouts to known legitimate sites.</li>
-                            <li><strong>Heuristic & Reputation Analysis:</strong> Cross-references URLs and IP addresses against global databases of known malicious actors.</li>
-                        </ul>
-                    </div>
-                     <div class="detail-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="ai-core-details" class="workflow-detail-section">
-             <div class="container reveal">
-                <div class="workflow-detail-content">
-                    <div class="detail-icon">
-                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" /></svg>
-                    </div>
-                    <div class="detail-text">
-                        <h2>3. AI Decision Core</h2>
-                        <p>This is the brain of Secure Vision. All the extracted signals and features are fed into our state-of-the-art deep learning model for a final, highly accurate verdict.</p>
-                        <ul>
-                            <li><strong>LSTM/Transformer Model:</strong> We utilize a powerful neural network architecture capable of understanding context and identifying complex patterns that simple filters would miss.</li>
-                            <li><strong>Real-Time Classification:</strong> The model is optimized for speed, delivering a "safe" or "malicious" verdict in a matter of milliseconds.</li>
-                            <li><strong>Confidence Scoring:</strong> Each decision is accompanied by a confidence score, which determines the severity of the warning given to the user.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="action-details" class="workflow-detail-section" style="background-color: var(--section-bg);">
-             <div class="container reveal">
-                <div class="workflow-detail-content right">
-                     <div class="detail-text">
-                        <h2>4. Action & Learning</h2>
-                        <p>Based on the AI's decision, Secure Vision takes immediate, automated steps to protect the user and improve the system.</p>
-                        <ul>
-                            <li><strong>Block & Quarantine:</strong> Confirmed high-risk threats result in the website being blocked or the email being quarantined instantly.</li>
-                            <li><strong>Tiered User Alerts:</strong> For low and medium-risk threats, clear, non-intrusive warnings are provided, empowering the user to make an informed decision.</li>
-                            <li><strong>Feedback Loop:</strong> Every action and result is fed back into our system, allowing the AI model to continuously learn from new threats and become even smarter over time.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" /></svg>
-                    </div>
                 </div>
             </div>
         </section>
@@ -818,11 +836,33 @@
             revealOnScroll();
             updateActiveNavLink();
 
+            // --- INTERACTIVE WORKFLOW SCRIPT ---
+            const workflowSteps = document.querySelectorAll('.flowchart-step');
+            const detailWrappers = document.querySelectorAll('.workflow-detail-wrapper');
+
+            workflowSteps.forEach(step => {
+                step.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    const targetId = step.getAttribute('data-target');
+                    const targetWrapper = document.getElementById(targetId);
+
+                    const isAlreadyActive = targetWrapper.classList.contains('active');
+
+                    // Close all wrappers and remove active state from steps
+                    detailWrappers.forEach(wrapper => wrapper.classList.remove('active'));
+                    workflowSteps.forEach(s => s.classList.remove('active-step'));
+
+                    // If it wasn't the one already active, open it
+                    if (!isAlreadyActive) {
+                        targetWrapper.classList.add('active');
+                        step.classList.add('active-step');
+                    }
+                });
+            });
+
         });
     </script>
 </body>
 </html>
-
-
-
 

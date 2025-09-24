@@ -422,15 +422,100 @@
             font-size: 1rem;
             color: var(--light-text);
         }
+        
+        /* --- Development Stages --- */
+        #development-stages {
+             background-color: #fff;
+        }
+        .stages-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+        .stages-container::before {
+            content: '';
+            position: absolute;
+            top: 40px; /* Aligns with center of the icon */
+            left: 15%;
+            right: 15%;
+            height: 4px;
+            background-color: var(--border-color);
+            z-index: 1;
+        }
+        .stage {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 30%;
+        }
+        .stage-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 4px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+        }
+        .stage-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--light-text);
+            transition: all 0.3s ease;
+        }
+        .stage h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark-text);
+        }
+        .stage p {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+        .stage.active .stage-icon,
+        .stage:hover .stage-icon {
+            border-color: var(--primary-color);
+            background-color: var(--primary-color);
+        }
+        .stage.active .stage-icon svg,
+        .stage:hover .stage-icon svg {
+            color: #fff;
+        }
+        @media (max-width: 768px) {
+            .stages-container {
+                flex-direction: column;
+                gap: 40px;
+                align-items: center;
+            }
+            .stages-container::before {
+                left: 50%;
+                top: 5%;
+                bottom: 5%;
+                width: 4px;
+                height: 90%;
+                transform: translateX(-50%);
+            }
+            .stage {
+                width: 80%;
+                max-width: 400px;
+            }
+        }
+        
 
         /* --- Tech Stack --- */
         #tech-stack {
-            /* background-color: var(--section-bg); */
+            background-color: var(--section-bg);
         }
         .tech-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: flex-start;
             gap: 40px;
         }
         .tech-item {
@@ -439,8 +524,9 @@
             align-items: center;
             gap: 12px;
             width: 120px;
+            text-align: center;
         }
-        .tech-item img {
+        .tech-item img, .tech-item svg {
             height: 48px;
             width: 48px;
             object-fit: contain;
@@ -449,10 +535,19 @@
             font-weight: 600;
             font-size: 0.9rem;
         }
+        .tech-subtitle {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--light-text);
+        }
         
         /* --- Team Section --- */
         #team {
-            background-color: var(--section-bg);
+            /* background-color: var(--section-bg); */
         }
         .team-grid {
             display: grid;
@@ -529,6 +624,7 @@
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#how-it-works">Workflow</a></li>
                 <li><a href="#features">Features</a></li>
+                <li><a href="#development-stages">Stages</a></li>
                 <li><a href="#extension-in-action">Extension</a></li>
                 <li><a href="#tech-stack">Technology</a></li>
                 <li><a href="#team">Team</a></li>
@@ -692,6 +788,47 @@
                 </div>
             </div>
         </section>
+        
+        <section id="development-stages">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Developing Stages</h2>
+                    <p>Our project is planned in three distinct phases, from initial concept to a full-fledged mobile application.</p>
+                </div>
+                <div class="stages-container reveal">
+                    <div class="stage active">
+                        <div class="stage-icon">
+                            <!-- Icon for prototype/blueprint -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                            </svg>
+                        </div>
+                        <h3>Stage 1: Prototype</h3>
+                        <p>The initial functional prototype demonstrating the core AI/ML detection capabilities.</p>
+                    </div>
+                    <div class="stage">
+                        <div class="stage-icon">
+                             <!-- Icon for extension -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                               <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A11.953 11.953 0 0112 16.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 002.284 14.253" />
+                            </svg>
+                        </div>
+                        <h3>Stage 2: Extension</h3>
+                        <p>Developing a robust browser extension for real-time website and link scanning.</p>
+                    </div>
+                    <div class="stage">
+                        <div class="stage-icon">
+                            <!-- Icon for mobile app -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75A2.25 2.25 0 0015.75 1.5h-2.25m-3 0h3m-3 18h3" />
+                            </svg>
+                        </div>
+                        <h3>Stage 3: Mobile App</h3>
+                        <p>A comprehensive mobile application to protect users on-the-go across all apps.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section id="extension-in-action">
             <div class="container">
@@ -738,12 +875,39 @@
                     <p>Built on a foundation of robust and cutting-edge technologies to deliver performance and reliability.</p>
                 </div>
                 <div class="tech-grid reveal">
+                    <h3 class="tech-subtitle">Core Frameworks & Platforms</h3>
                     <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/python/python-icon.svg" alt="Python"><p>Python</p></div>
                     <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg" alt="TensorFlow"><p>TensorFlow</p></div>
                     <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/visualstudio_code/visualstudio_code-icon.svg" alt="VSCode"><p>VSCode</p></div>
                     <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg" alt="React"><p>React.js</p></div>
-                    <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/google_developers/google_developers-icon.svg" alt="Google Developers"><p>Google Developers</p></div>
+                    <div class="tech-item"><img src="gd.ico" alt="Google Developers"><p>Google Developers</p></div>
                     <div class="tech-item"><img src="https://www.vectorlogo.zone/logos/docker/docker-icon.svg" alt="Docker"><p>Docker</p></div>
+                    
+                    <h3 class="tech-subtitle">Machine Learning Models & Techniques</h3>
+                    <div class="tech-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5f6368"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.456-2.456L12.5 18l1.178-.398a3.375 3.375 0 002.456-2.456L16.5 14.25l.398 1.178a3.375 3.375 0 002.456 2.456L20.5 18l-1.178.398a3.375 3.375 0 00-2.456 2.456z" /></svg>
+                        <p>TfidfVectorizer</p>
+                    </div>
+                    <div class="tech-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5f6368"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.456-2.456L12.5 18l1.178-.398a3.375 3.375 0 002.456-2.456L16.5 14.25l.398 1.178a3.375 3.375 0 002.456 2.456L20.5 18l-1.178.398a3.375 3.375 0 00-2.456 2.456z" /></svg>
+                        <p>Random Forest</p>
+                    </div>
+                     <div class="tech-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5f6368"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.456-2.456L12.5 18l1.178-.398a3.375 3.375 0 002.456-2.456L16.5 14.25l.398 1.178a3.375 3.375 0 002.456 2.456L20.5 18l-1.178.398a3.375 3.375 0 00-2.456 2.456z" /></svg>
+                        <p>XGBoost/LightGBM</p>
+                    </div>
+                     <div class="tech-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5f6368"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.456-2.456L12.5 18l1.178-.398a3.375 3.375 0 002.456-2.456L16.5 14.25l.398 1.178a3.375 3.375 0 002.456 2.456L20.5 18l-1.178.398a3.375 3.375 0 00-2.456 2.456z" /></svg>
+                        <p>DistilBERT</p>
+                    </div>
+                     <div class="tech-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5f6368"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.456-2.456L12.5 18l1.178-.398a3.375 3.375 0 002.456-2.456L16.5 14.25l.398 1.178a3.375 3.375 0 002.456 2.456L20.5 18l-1.178.398a3.375 3.375 0 00-2.456 2.456z" /></svg>
+                        <p>Logistic Regression</p>
+                    </div>
+                     <div class="tech-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#5f6368"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.572L16.5 21.75l-.398-1.178a3.375 3.375 0 00-2.456-2.456L12.5 18l1.178-.398a3.375 3.375 0 002.456-2.456L16.5 14.25l.398 1.178a3.375 3.375 0 002.456 2.456L20.5 18l-1.178.398a3.375 3.375 0 00-2.456 2.456z" /></svg>
+                        <p>CNN</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -865,3 +1029,4 @@
     </script>
 </body>
 </html>
+
